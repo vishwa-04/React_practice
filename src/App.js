@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
     <Link to={'user'}>
-    user
+    <h1>User</h1>
     </Link>
     </div>
   );
