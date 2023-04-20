@@ -8,12 +8,12 @@ const UserData = ({ users }) => {
                 return (
                   
                     <tr key={id }>
-                        <td>{id }</td>
+                        <td>{id}</td>
                         <td>{name  }</td>
                         <td>{email}</td>
-                        <td>{city },{city },{ zipcode}</td>
-                        <td> <Link to={'userPost'}>
-                            View
+                        <td>{street },{city },{ zipcode}</td>
+                        <td> <Link to={'/userPost'} state={curUser.id}>
+                            View Post
                         </Link></td>
                     </tr>
                 )

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import UserData from '../Component/UserData';
-
+import '../userData/css/post.css';
 function UserDetails() {
 
   const [users, setUsers] = useState([])
