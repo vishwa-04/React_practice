@@ -16,9 +16,11 @@ const UserData = ({ users }) => {
                             View Post
                         </Link></td>
                     </tr>
+
                 )
             })
         }
+        
     </>
 }
 export default UserData

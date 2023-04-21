@@ -28,9 +28,9 @@
     background-color: rgb(79, 128, 163);
 
 }
-table,tr,td,th{
+/* table,tr,td,th{
     border: 2px solid black;
-    margin: 8% auto;
+    margin: 5% auto;
     padding: 5px 5px;
 }
 th{
@@ -38,4 +38,22 @@ th{
 }
 td{
     background-color: bisque;
+} */
+.button{
+    display: flex;
+    justify-content: center;
+
+}
+.crtBtn{
+    
+        background-color: rgb(79, 128, 163);
+        border-radius: 30px;
+        border: none;
+        color: black;
+        padding: 15px 32px;
+        text-decoration: none;
+        display: inline-block;
+        font-size: 16px;
+        font-weight: bolder;
+      
 }

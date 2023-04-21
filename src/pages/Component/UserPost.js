@@ -12,7 +12,7 @@ function UserPost() {
 
     const [visible,setVisibility]= useState(5)
     const [post, setPost] = useState([])
-    const [comment, setComment]=useState([])
+  
 
     const loadMore = ()=>{
         setVisibility((prevValue) => prevValue + 5 );

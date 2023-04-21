@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import {Link} from 'react-router-dom';
 import UserData from '../Component/UserData';
 import '../userData/css/post.css';
 function UserDetails() {
@@ -35,6 +36,9 @@ function UserDetails() {
         <UserData users={users}/>
       </tbody>
     </table>
+    <div className='button'>
+    <Link className='crtBtn' to={'/userForm'}>Create Form</Link>
+    </div>
   </>
 }
 export default UserDetails
