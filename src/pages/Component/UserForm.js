@@ -2,19 +2,40 @@ import { useEffect, useState } from "react";
 import "../userData/css/form.css";
 function UserForm() {
   const initialValues = {
-    gender:"Male",
+    gender: "",
     firstname: "",
     lastname: "",
     mobile: "",
     email: "",
+    interest: [],
     birthdate: "",
     address: "",
+    achTitle:[]
+
   };
   const [formValues, setFormValues] = useState(initialValues);
   const [formError, setFormError] = useState({});
   const [isSubmit, setIsSubmit] = useState(false);
-  const [achievement , setAchievement] = useState([''])
+  const [achievement, setAchievement] = useState([{service:""}]);
 
+  function handleAdd() {
+    console.log("Clicked!!!");
+    const addAchievement = [...achievement, []];
+    setAchievement(addAchievement);
+  }
+  function handleServiceChange(e,index) {
+    const {name,value} = e.target
+    const list = [...achievement]
+    list[index][name]=value;
+    setAchievement(list)
+  }
+function handleRemove(index){
+  console.log("removed" + index)
+  const list = [...achievement]
+  console.log([...achievement])
+  list.splice(index,1)
+  setAchievement(list);
+}
   function submitHandle(e) {
     e.preventDefault();
 
@@ -22,12 +43,11 @@ function UserForm() {
     setFormError(validate(formValues));
     setIsSubmit(true);
   }
-  useEffect(()=>{
-    console.log(formError);
-if(Object.keys(formError).length === 0 && isSubmit){
-  console.log(formValues );
-}
-  },[formError])
+  useEffect(() => {
+    if (Object.keys(formError).length === 0 && isSubmit) {
+      console.log(formValues);
+    }
+  }, [formError]);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormValues({ ...formValues, [name]: value });
@@ -42,9 +62,8 @@ if(Object.keys(formError).length === 0 && isSubmit){
     }
     if (values.mobile === "") {
       errors.mobile = "Mobile number is required";
-    }
-    else if(values.mobile.length > 10 || values.mobile.length < 10){
-      errors.mobile = "Mobile number should be 10 digits"
+    } else if (values.mobile.length > 10 || values.mobile.length < 10) {
+      errors.mobile = "Mobile number should be 10 digits";
     }
     if (values.email === "") {
       errors.email = "Email is required";
@@ -55,24 +74,29 @@ if(Object.keys(formError).length === 0 && isSubmit){
     if (values.birthdate === "") {
       errors.birthdate = "Birthdate is required";
     }
-    if(values.gender.checked){
-      errors.gender = "Please select gender"
+    if (!values.gender) {
+      errors.gender = "Please select gender";
     }
-  
-else if ((values.birthdate)<1980){
-  console.log((values.birthdate)>1980)
-errors.birthdate = "Enter birthdate between 1980 and 2020"
-}
+    if (document.querySelectorAll("input:checked").length === 0) {
+      errors.check = "please select one box";
+    }
+    if(values.achTitle === ""&& values.achTitle.length<=1){
+      errors.achTitle = "Please add some achievement"
+    }
+    // console.log(checked,"checkbox value")
 
-    console.log(errors);
+    // console.log(errors);
     return errors;
   };
   return (
-    <div>
-      {Object.keys(formError).length === 0 && isSubmit ? (<div>Registered Successfully</div>):""}
+    <div className="box">
+      {Object.keys(formError).length === 0 && isSubmit ? (
+        <div>Registered Successfully</div>
+      ) : (
+        ""
+      )}
       <form onSubmit={submitHandle}>
-        <fieldset>
-          <legend>User Form</legend>
+        <div className="container">
           <table>
             <tbody>
               <tr>
@@ -87,7 +111,7 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                     value={formValues.firstname}
                     onChange={handleChange}
                   ></input>
-                  <span className="errorStyle">{formError.firstname}</span>
+                  <div className="errorStyle">{formError.firstname}</div>
                 </td>
               </tr>
               <tr>
@@ -102,7 +126,7 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                     value={formValues.lastname}
                     onChange={handleChange}
                   ></input>
-                  <span className="errorStyle">{formError.lastname}</span>
+                  <div className="errorStyle">{formError.lastname}</div>
                 </td>
               </tr>
               <tr>
@@ -117,7 +141,7 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                     value={formValues.mobile}
                     onChange={handleChange}
                   ></input>
-                  <span className="errorStyle">{formError.mobile}</span>
+                  <div className="errorStyle">{formError.mobile}</div>
                 </td>
               </tr>
               <tr>
@@ -132,7 +156,7 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                     value={formValues.email}
                     onChange={handleChange}
                   ></input>
-                  <span className="errorStyle">{formError.email}</span>
+                  <div className="errorStyle">{formError.email}</div>
                 </td>
               </tr>
               <tr>
@@ -143,10 +167,12 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                   <input
                     type="date"
                     name="birthdate"
+                    min="1980-01-01"
+                    max="2020-12-31"
                     value={formValues.birthdate}
                     onChange={handleChange}
                   ></input>
-                  <span className="errorStyle">{formError.birthdate}</span>
+                  <div className="errorStyle">{formError.birthdate}</div>
                 </td>
               </tr>
               <tr>
@@ -154,13 +180,28 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                   <label>Gender</label>
                 </td>
                 <td>
-                  <input type="radio" name="gender" value="Male" onChange={handleChange}/>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Male"
+                    onChange={handleChange}
+                  />
                   Male
-                  <input type="radio" name="gender" value="Female" onChange={handleChange} />
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Female"
+                    onChange={handleChange}
+                  />
                   Female
-                  <input type="radio" name="gender" value="Others" onChange={handleChange}/>
+                  <input
+                    type="radio"
+                    name="gender"
+                    value="Others"
+                    onChange={handleChange}
+                  />
                   Others
-                  <span className="errorStyle">{formError.gender}</span>
+                  <div className="errorStyle">{formError.gender}</div>
                 </td>
               </tr>
               <tr>
@@ -176,7 +217,7 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                     value={formValues.address}
                     onChange={handleChange}
                   ></textarea>
-                  <span className="errorStyle">{formError.address}</span>
+                  <div className="errorStyle">{formError.address}</div>
                 </td>
               </tr>
               <tr>
@@ -186,40 +227,65 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
                 <td>
                   <input
                     type="checkbox"
-                    id="interest1"
-                    name="dance"
+                    id="dance"
+                    className="check"
+                    name="interest"
                     value="dance"
+                    onChange={handleChange}
                   />
                   Dance
                   <input
                     type="checkbox"
-                    id="interest2"
-                    name="music"
+                    id="music"
+                    className="check"
+                    name="interest"
                     value="music"
+                    onChange={handleChange}
                   />
                   Music
                   <input
                     type="checkbox"
-                    id="interest3"
-                    name="reading"
+                    id="reading"
+                    className="check"
+                    name="interest"
                     value="reading"
+                    onChange={handleChange}
                   />
                   Reading
+                  <div className="errorStyle">{formError.check}</div>
                 </td>
               </tr>
               <tr>
                 <td>
                   <label>Achievements</label>
                 </td>
-                <td>
-                  <input
-                    type="text"
-                    placeholder="Enter Title"
-                    name="achTitle"
-                  ></input>
-                  <input type="date" name="achDate" />
-                  <button>Add</button>
-                </td>
+                {achievement.map((data, i) => {
+                  console.log(data.i,"map")
+                  return (
+                    <>
+                      <div>
+                        <td>
+                          {" "}
+                          <input
+                            type="text"
+                            placeholder="Enter Title"
+                            name="achTitle"
+                            value = {data.achTitle}
+                            onChange =  {(e) => handleServiceChange(e,i)}
+                          />
+                          <input type="date" name="achDate" />
+                          {achievement.length > 1 && <button onClick={() => handleRemove(i)}>Remove</button>}
+                        </td>
+                      </div>
+                    </>
+                  );
+                })}
+                <tr>
+                  <td>
+                  <div className="errorStyle">{formError.achTitle}</div>
+                    <button onClick={() => handleAdd()}>Add</button>
+                  </td>
+                </tr>
               </tr>
               <tr>
                 <td>
@@ -228,7 +294,7 @@ errors.birthdate = "Enter birthdate between 1980 and 2020"
               </tr>
             </tbody>
           </table>
-        </fieldset>
+        </div>
       </form>
     </div>
   );

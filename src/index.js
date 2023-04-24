@@ -12,6 +12,7 @@ import UserData from './pages/Component/UserData';
 import UserPost from './pages/Component/UserPost';
 import UserComment from './pages/Component/UserComment';
 import UserForm from './pages/Component/UserForm';
+import CreatePost from './pages/Component/CreatePost';
 const router = createBrowserRouter([
   {
     path: "/",
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
  {
   path:"/userForm",
   element:<UserForm />
+ },
+ {
+  path:'/createPost',
+  element:<CreatePost />
  }
 ]);
 

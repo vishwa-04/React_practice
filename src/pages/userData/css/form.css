@@ -6,3 +6,36 @@ input::-webkit-inner-spin-button {
 .errorStyle{
   color:red
 }
+tr,td,table{
+  /* border: 2px solid black; */
+  margin-left: 5%;
+  margin-bottom: 5%;
+  padding: 10px 10px;
+}
+.container{
+  /* border: 2px solid black; */
+/* width: fit-content; */
+  display: flex;
+  justify-content: center;
+}
+input[type=text] {
+  border: none;
+  border-bottom: 2px solid rgb(69, 109, 136);
+  margin-right: 20px;
+}
+input[type=number] {
+  border: none;
+  border-bottom: 2px solid rgb(69, 109, 136);
+}
+input[type=email] {
+  border: none;
+  border-bottom: 2px solid rgb(69, 109, 136);
+}
+input[type=date] {
+  border: none;
+  border-bottom: 2px solid rgb(69, 109, 136);
+}
+textarea{
+  border: none;
+  border-bottom: 2px solid rgb(69, 109, 136);
+}

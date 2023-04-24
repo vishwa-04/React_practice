@@ -41,6 +41,7 @@ function UserPost() {
     }, [])
     return <>
            <Link to={'/user'}><button>Go Back</button></Link>
+           <Link to={'/createPost'}><button>Create Post</button></Link>
         {
             post.slice(0,visible).map((curPost) => {
                 const { userId, id, title, body, } = curPost;
